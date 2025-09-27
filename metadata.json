@@ -1,0 +1,5 @@
+{
+  "name": "v2,8",
+  "description": "A web-based digital assistant for the wargame 'Der Ringkrieg'. It manages rules, game state, combat resolution, and unit tracking on an interactive map, serving as the single source of truth for the game.",
+  "requestFramePermissions": []
+}

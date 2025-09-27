@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Der Ringkrieg - Digital Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/"
+  }
+}
+</script>
+<style>
+    @keyframes fade-in-down {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-fade-in-down {
+        animation: fade-in-down 0.75s ease-out forwards;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+    }
+
+    @keyframes slide-in-right {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slide-out-right {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+    
+    @keyframes slide-in-up {
+      from { transform: translateY(100%); opacity: 0.5; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slide-out-down {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(100%); opacity: 0; }
+    }
+    .animate-slide-in-up {
+        animation: slide-in-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+     .animate-slide-out-down {
+        animation: slide-out-down 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+    }
+
+    /* --- Turn Banner Animation --- */
+    @keyframes turn-banner-in-out {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -150%);
+        }
+        20%, 80% {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -150%);
+        }
+    }
+    .animate-turn-banner-in-out {
+        animation: turn-banner-in-out 5s ease-in-out forwards;
+    }
+    
+    /* --- Event Banner Animation --- */
+    @keyframes unfurl {
+        0% { max-height: 0; opacity: 0; transform: translateY(-20px) rotateX(-90deg); }
+        100% { max-height: 200px; opacity: 1; transform: translateY(0) rotateX(0deg); }
+    }
+    @keyframes scroll-up {
+        0% { max-height: 200px; opacity: 1; transform: translateY(0) rotateX(0deg); }
+        100% { max-height: 0; opacity: 0; transform: translateY(-20px) rotateX(-90deg); }
+    }
+    .animate-event-banner-in-out {
+        transform-origin: top center;
+        animation: unfurl 0.8s ease-out forwards, scroll-up 0.8s ease-in 19.2s forwards;
+    }
+
+    /* --- Combat Animations --- */
+    @keyframes slide-in-left {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    .animate-slide-in-left {
+        animation: slide-in-left 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+    .animate-slide-in-right {
+        animation: slide-in-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    @keyframes ranged-fly {
+        from { transform: translateX(-250px) scale(0.8) rotate(-15deg); opacity: 0; }
+        20% { opacity: 1; }
+        to { transform: translateX(250px) scale(1.2) rotate(15deg); opacity: 0; }
+    }
+    @keyframes lunge {
+        from { transform: translateX(-250px) scale(1.1) rotate(5deg); opacity: 0; }
+        20% { opacity: 1; }
+        to { transform: translateX(250px) scale(1.1) rotate(-5deg); opacity: 0; }
+    }
+    @keyframes melee-clash {
+        0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
+        50% { transform: scale(1.8) rotate(-10deg); opacity: 1; }
+        100% { transform: scale(1.2) rotate(10deg); opacity: 0; }
+    }
+
+    @keyframes panel-lunge {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(20px); }
+    }
+    .animate-lunge { animation: panel-lunge 0.6s ease-in-out forwards; }
+
+    @keyframes hit-shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px) rotate(-1deg); }
+        20%, 40%, 60%, 80% { transform: translateX(5px) rotate(1deg); }
+    }
+    .animate-hit-shake { animation: hit-shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+
+    @keyframes shield-flash {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(200, 200, 255, 0); }
+        50% { box-shadow: 0 0 30px 15px rgba(200, 200, 255, 0.8); }
+    }
+    .animate-shield-flash { animation: shield-flash 0.7s ease-out; }
+
+    @keyframes damage-pop {
+        from { opacity: 0.8; }
+        to { opacity: 0; }
+    }
+    .animate-damage-pop { animation: damage-pop 0.5s ease-out forwards; }
+
+    @keyframes dice-flicker {
+        0%   { content: '1'; transform: rotate(10deg) scale(0.8); }
+        10%  { content: '5'; transform: rotate(-8deg) scale(1); }
+        20%  { content: '3'; transform: rotate(6deg) scale(0.9); }
+        30%  { content: '6'; transform: rotate(-4deg) scale(1.1); }
+        40%  { content: '2'; transform: rotate(2deg) scale(0.95); }
+        50%  { content: '4'; transform: rotate(-1deg) scale(1.05); }
+        60%  { content: '1'; }
+        70%  { content: '5'; }
+        80%  { content: '2'; }
+        90%  { content: '6'; }
+        100% { content: var(--final-dice); transform: rotate(0deg) scale(1.1); }
+    }
+    .animate-dice-flicker { display: inline-block; width: 1em; height: 1em; position: relative; }
+    .animate-dice-flicker::after {
+        content: '1';
+        animation: dice-flicker 1s ease-out forwards;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .dice-hit { background-color: #22c55e !important; color: white !important; border: 2px solid #86efac; }
+    .dice-crit {
+        background-color: #f59e0b !important;
+        color: white !important;
+        border: 2px solid #fcd34d;
+        transform: scale(1.1);
+        box-shadow: 0 0 15px #f59e0b;
+    }
+
+    /* --- Theme Variables & Classes --- */
+    :root {
+        --font-heading: 'Cinzel', serif;
+        --font-body: 'Lato', sans-serif;
+
+        --color-primary: #8a6538; /* Bronze color for buttons */
+        --color-secondary: #110f0d; /* Darker secondary for disabled states */
+        --color-panel: rgba(20, 16, 12, 0.75); /* Panel bg with alpha */
+        --color-text: #e0dcd3; /* Parchment text */
+        --color-text-accent: #e5a935; /* Gold accent */
+        --color-bg: #1a1612; /* Very dark wood/stone background */
+        --color-border: #4a4033;
+        --color-primary-text: #FFFFFF;
+    }
+
+    body {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-body);
+    }
+
+    .panel {
+        background-color: var(--color-panel);
+        border: 1px solid var(--color-border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    
+    .border-themed {
+        border-color: var(--color-border);
+    }
+
+    .btn-primary {
+        background-color: var(--color-primary);
+        color: var(--color-primary-text);
+        border: 1px solid color-mix(in srgb, var(--color-border) 50%, #000 50%);
+        border-top-color: var(--color-border);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+        transition: all 0.15s ease-out;
+    }
+    .btn-primary:hover:not(:disabled) {
+        background-color: color-mix(in srgb, var(--color-primary) 90%, #fff 15%);
+        transform: translateY(-2px);
+        box-shadow: 0 7px 10px -1px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+     .btn-primary:disabled {
+        background-color: var(--color-secondary);
+        color: var(--color-text);
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+
+    .btn-press-feedback:active:not(:disabled) {
+        transform: translateY(1px);
+        box-shadow: 0 2px 3px -1px rgba(0,0,0,0.3), 0 1px 2px -2px rgba(0,0,0,0.3), inset 0 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .text-accent {
+        color: var(--color-text-accent);
+        text-shadow: 0 0 8px color-mix(in srgb, var(--color-text-accent) 50%, transparent);
+    }
+    
+    .tooltip-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip-text {
+        visibility: hidden;
+        width: 220px;
+        background-color: var(--color-secondary);
+        color: var(--color-text);
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px;
+        position: absolute;
+        z-index: 100;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -110px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        font-size: 0.875rem;
+        border: 1px solid var(--color-border);
+    }
+
+    .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--color-secondary) transparent transparent transparent;
+    }
+
+    .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+
+</style>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
